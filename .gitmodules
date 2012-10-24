@@ -1,3 +1,6 @@
 [submodule "themes/style/mozilla"]
 	path = themes/style/mozilla
 	url = git@github.com:groovecoder/deckjs-theme-mozilla.git
+[submodule "extensions/codemirror"]
+	path = extensions/codemirror
+	url = git://github.com/groovecoder/deck.js-codemirror.git

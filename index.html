@@ -5,7 +5,7 @@
 	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 	<meta name="viewport" content="width=1024, user-scalable=no">
 
-	<title>deckjs & mozilla sandstone</title>
+	<title>Mozilla Web Dev with Python</title>
 	
 	<!-- Required stylesheet -->
 	<link rel="stylesheet" href="core/deck.core.css">
@@ -17,6 +17,8 @@
 	<link rel="stylesheet" href="extensions/status/deck.status.css">
 	<link rel="stylesheet" href="extensions/hash/deck.hash.css">
 	<link rel="stylesheet" href="extensions/scale/deck.scale.css">
+  <link rel="stylesheet" href="extensions/codemirror/deck.codemirror.css"/>
+  <link rel="stylesheet" href="extensions/codemirror/themes/lesser-dark.css"/>
   <link href="//www.mozilla.org/tabzilla/media/css/tabzilla.css" rel="stylesheet" />
 	<link rel="stylesheet" href="/deckjs-remote.css">
 
@@ -24,110 +26,195 @@
 	<link id="theme" rel="stylesheet" href="themes/style/mozilla/sandstone.default.css">
 	
 	<!-- Transition theme. More available in /themes/transition/ or create your own. -->
-	<link rel="stylesheet" href="themes/transition/horizontal-slide.css">
+  <link rel="stylesheet" href="themes/transition/fade.css">
 	
 	<!-- Required Modernizr file -->
 	<script src="modernizr.custom.js"></script>
 </head>
-<body class="deck-container">
+<body class="deck-container deck-codemirror">
   <a href="http://www.mozilla.org/" id="tabzilla">mozilla</a>
 
 <!-- Begin slides. Just make elements with a class of slide. -->
 
 <section class="slide">
-  <h2>WebDev Beer &amp; Tell</h2>
-	<h1>deckjs, remote &amp;<br/>mozilla sandstone</h1>
+  <h2>Mozilla Web Dev with Python</h2>
+  <h3>Luke Crouch</h3>
+	<h1>pyark.jit.su/deck</h1>
 </section>
 
 <section class="slide">
-<h2><a href="https://github.com/imakewebthings/deck.js">deck.js</a> + Hotness</h2>
+  <h2>Luke</h2>
+  <h3>groovecoder</h3>
   <ul>
-    <li>target="_blank"</li>
-    <li>deckjs-remote: WebSockets/socket.io</li>
-      <ul>
-        <li>Deployable to nodejitsu</li>
-      </ul>
-    <li>deckjs-theme-mozilla (Sandstone)</li>
-    <li>theme switching</li>
-    <li>TABZILLA!</li>
-    <li>deckjs-iframes</li>
+    <li><a href="http://groovecoder.com">groovecoder.com</a></li>
+    <li><a href="http://twitter.com/groovecoder">@groovecoder</a></li>
+    <li><a href="http://github.com/groovecoder">github.com/groovecoder</a></li>
+    <li>irc.mozilla.org, irc.freenode.net</li>
   </ul>
 </section>
 
 <section class="slide">
-  <h2><a href="https://developer.mozilla.org/docs/HTML/Element/a#Attributes">target=_blank</a></h2>
-  <pre>&lt;a href="https://developer.mozilla.org/docs/HTML/Element/a#Attributes"&gt;target=_blank&lt;/a&gt;</pre>
-  <pre>$('a').each(function() {
-  $(this).attr('target', '_blank');
-});</pre>
+  <h2>Luke</h2>
+  <ul>
+    <li class="slide">Dad</li>
+    <li class="slide">Homebrewer</li>
+    <li class="slide">Webdev</li>
+  </ul>
 </section>
 
 <section class="slide">
-  <h2><a href="https://github.com/chrisjaure/deckjs-remote">deckjs-remote</a></h2>
-  <pre>&lt;script src="/deckjs-remote.js"&gt;&lt;/script&gt;
-&lt;script&gt;
-  $(function() {
-    $.deck('remote', { server: 'http://beer-and-tell.jit.su/' });
-  });
-&lt;/script&gt;</pre>
-  <p>Run locally</p>
-  <pre>node server.js</pre>
-  <p>Deploy to <a href="http://nodejitsu.com/">nodejitsu</a></p>
-  <pre>jitsu deploy</pre>
+  <h2>Webdev</h2>
+  <ul>
+    <li class="slide">Intranet webapps - Java, ColdFusion, PHP</li>
+    <li class="slide">SourceForge.net - PHP, Java, Python</li>
+    <li class="slide">Mozilla - javascript, Python</li>
+  </ul>
 </section>
 
 <section class="slide">
-  <h2><a href="https://github.com/groovecoder/deckjs-theme-mozilla">deckjs-theme-mozilla</a></h2>
-  <pre>&lt;link rel="stylesheet" href="themes/style/mozilla/sandstone.default.css"&gt;
-&lt;link rel="stylesheet" href="themes/style/mozilla/sandstone.firefox.css"&gt;
-&lt;link rel="stylesheet" href="themes/style/mozilla/sandstone.dark.css"&gt;
-&lt;link rel="stylesheet" href="themes/style/mozilla/sandstone.light.css"&gt;
-&lt;link rel="stylesheet" href="themes/style/mozilla/sandstone.aurora.css"&gt;
-&lt;link rel="stylesheet" href="themes/style/mozilla/sandstone.nightly.css"&gt;
- </pre>
+  <h2>Python</h2>
+  <ul>
+    <li class="slide">2 years</li>
+    <li class="slide"><3</li>
+    <li class="slide">learning from smart python dev's at Mozilla</li>
+  </ul>
 </section>
 
 <section class="slide">
-	<h2>theme switching</h2>
-  <pre>var key_theme_array = {};
-key_theme_array['49'] = 'default';
-key_theme_array['50'] = 'firefox';
-key_theme_array['51'] = 'light';
-key_theme_array['52'] = 'dark';
-key_theme_array['53'] = 'aurora';
-key_theme_array['54'] = 'nightly';
-$(this).keyup(function(e){
-  if (key_theme_array.hasOwnProperty(e.which)) {
-    var theme_css = 'themes/style/mozilla/sandstone.' + key_theme_array[e.which] + '.css';
-    $('#theme').attr('href', theme_css);
-  }
-});
-</pre>
+  <h2>Mozilla</h2>
+  <h1>openness<br/>innovation<br/>opportunity</h1>
 </section>
 
 <section class="slide">
-  <h1>tabzilla</h1>
+  <h2>Mozilla</h2>
+  <ul>
+    <li class="slide">support the mission</li>
+    <li class="slide">2 years</li>
+    <li class="slide">MDN</li>
+  </ul>
 </section>
 
 <section class="slide">
-	<h2><a href="https://github.com/groovecoder/deckjs-iframes">deck.iframes.js</a></h2>
-  <pre>&lt;script src="extensions/deck.iframes.js"&gt;&lt;/script&gt;
-&lt;script&gt;
-  $(function() {
-    $.deck('iframes');
-  });
-&lt;/script&gt;</pre>
+  <h2>How?</h2>
+  <h3>Web sites and platforms to support:</h3>
+  <ul>
+    <li class="slide">Firefox</li>
+    <li class="slide">Firefox OS</li>
+    <li class="slide">Open Web Apps</li>
+    <li class="slide">Persona</li>
+  </ul>
 </section>
 
 <section class="slide">
-	<h2>iframe's</h2>
-  <iframe src="http://christianheilmann.com/2012/08/09/the-myth-of-the-portable-presentation-in-slide-form/"></iframe>
-  <pre>&lt;iframe src="http://christianheilmann.com/2012/08/09/the-myth-of-the-portable-presentation-in-slide-form/"&gt;&lt;/iframe&gt;</pre>
+  <h2>Who?</h2>
+  <div style="float: left;">
+    <h4>Dev's</h4>
+    <ul>
+      <li>Webdev</li>
+      <li>Websites</li>
+      <li>Foundation</li>
+      <li>Labs</li>
+      <li>Services</li>
+      <li>okay, everyone</li>
+    </ul>
+  </div>
+  <div class="slide" style="float: left;">
+    <h4>And ...</h4>
+    <ul>
+      <li>QA/WebQA</li>
+      <li>InfraSec/WebSec</li>
+      <li>IT/WebOps</li>
+      <li>Legal</li>
+      <li>Localization</li>
+      <li>so yeah - everyone!</li>
+    </ul>
+  </div>
 </section>
 
 <section class="slide">
-  <h2><a href="https://github.com/groovecoder/deckjs-remote#quickstart-with-slide-casting-boilerplate-presentation">quick-start</a></h2>
-  <img src="http://content.screencast.com/users/groovecoder/folders/Jing/media/d0d5289e-b7a9-47eb-be1e-2ff6bd4c3eff/00000658.png"/>
+  <h2>How many sites?</h2>
+  <h3><a href="https://wiki.mozilla.org/Websites/Active_List">Hundreds</a></h3>
+  <iframe src="https://wiki.mozilla.org/Websites/Active_List"></iframe>
+</section>
+
+<section class="slide">
+  <h2>&nbsp;</h2>
+  <div style="float: left">
+    <h4>Webdev</h4>
+    <ul>
+      <li class="slide"><a href="https://addons.mozilla.org">Addons (AMO)</a>
+      <ul><li>48M visitors/month</li></ul></li>
+      <li class="slide"><a href="https://support.mozilla.org">Support (SUMO)</a>
+      <ul><li>41M visitors/month</li></ul></li>
+      <li class="slide"><a href="https://developer.mozilla.org">Developer (DEVMO/MDN)</a>
+      <ul><li>4<span class="slide">.5</span>M visitors/month</li></ul></li>
+    </ul>
+  </div>
+  <div style="float: left">
+    <h4>Websites</h4>
+    <ul>
+      <li class="slide"><a href="https://mozilla.org">mozilla.org</a>
+      <ul><li>432M visitors/month</li></ul></li>
+      <li class="slide"><a href="https://wiki.mozilla.org/Websites/Snippets">snippets</a>
+      <ul><li>??B visitors/month</li></ul></li>
+      <li class="slide"><a href="https://blog.mozilla.org">blog.mozilla.org</a> (WordPress)</li>
+    </ul>
+  </div>
+  <div style="float: left">
+    <h4>Foundation</h4>
+    <ul>
+      <li class="slide"><a href="https://openbadges.org">openbadges.org</a></li>
+      <li class="slide"><a href="https://webmaker.org">webmaker.org</a></li>
+      <li class="slide"><a href="http://mozillapopcorn.org/">mozillapopcorn.org</a></li>
+    </ul>
+    <h4>Labs</h4>
+    <ul>
+      <li class="slide"><a href="https://persona.org">persona.org</a> (node.js)</li>
+    </ul>
+  </div>
+</section>
+
+<section class="slide">
+  <h2>Before 2009</h2>
+  <ul>
+    <li>Drupal</li>
+    <li>CakePHP</li>
+    <li>Kohana</li>
+    <li>WordPress</li>
+  </ul>
+</section>
+
+<section class="slide">
+  <h2>2009</h2>
+  <h1>AMO outgrows CakePHP</h1>
+</section>
+
+<section class="slide">
+  <h2>2009+</h2>
+  <img src="http://backcode.com/wp-content/uploads/2012/01/Djangsta_T-shirt.jpg"/>
+</section>
+
+<section class="slide">
+  <h2>Scaling</h2>
+  <ul>
+    <li class="slide">vertically - visitors &amp; traffic</li>
+    <li class="slide">horizontally - across teams</li>
+    <li class="slide">communally - across knowledge levels</li>
+  </ul>
+</section>
+
+
+<section class="slide">
+  <h2><a href="https://github.com/jsocol/django-waffle">django-waffle</a></h2>
+  <textarea id="django-waffle-code" class="code" mode="python" theme="lesser-dark">
+import waffle
+
+def my_view(request):
+    if waffle.flag_is_active(request, 'flag_name'):
+        pass
+    else:
+        pass
+  </textarea>
 </section>
 
 <!-- End slides. -->
@@ -172,6 +259,9 @@ $(this).keyup(function(e){
 <script src="extensions/navigation/deck.navigation.js"></script>
 <script src="extensions/scale/deck.scale.js"></script>
 <script src="extensions/deck.iframes.js"></script>
+<script src="extensions/codemirror/codemirror.js"></script>
+<script src="extensions/codemirror/deck.codemirror.js"></script>
+<script src="extensions/codemirror/mode/python/python.js"></script>
 <script src="//www.mozilla.org/tabzilla/media/js/tabzilla.js"></script>
 <script src="/deckjs-remote.js"></script>
 
