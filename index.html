@@ -190,11 +190,6 @@
 </section>
 
 <section class="slide">
-  <h2>2009+</h2>
-  <img src="http://backcode.com/wp-content/uploads/2012/01/Djangsta_T-shirt.jpg"/>
-</section>
-
-<section class="slide">
   <h2>"Scaling"</h2>
   <ul>
     <li class="slide">vertically - visitors &amp; traffic</li>
@@ -202,6 +197,11 @@
     <li class="slide">communally - across locales</li>
     <li class="slide">conceptually - across knowledge levels</li>
   </ul>
+</section>
+
+<section class="slide">
+  <h2>2009+</h2>
+  <img src="http://backcode.com/wp-content/uploads/2012/01/Djangsta_T-shirt.jpg"/>
 </section>
 
 <section class="slide">
@@ -231,22 +231,10 @@
 <section class="slide">
   <h2>playdoh libraries & tools for:</h2>
   <ul>
-    <li><span style="font-size: 200%">Getting Started</span></li>
+    <li><span style="font-size: 5em">Getting Started</span></li>
     <li>Performance</li>
     <li>Security</li>
     <li>Localization</li>
-  </ul>
-</section>
-
-<section class="slide">
-  <h2>playdoh / getting started</h2>
-  <h3>Start</h3>
-  <ul>
-    <li>funfactory</li>
-  </ul>
-  <h3>Test</h3>
-  <ul>
-    <li>djang-nose</li>
   </ul>
 </section>
 
@@ -259,29 +247,39 @@ funfactory --pkg=newsite
 
 mysql -u root -e 'create database newsite;'
 ./manage.py syncdb
-./manage.py runserver 0.0.0.0:8000
-  </textarea>
-  <hr/>
-  <h3 class="slide"><a href="http://south.aeracode.org/">South</a></h3>
+./manage.py runserver 0.0.0.0:8000</textarea>
+  <ul>
+    <li class="slide"><a href="http://djangoproject.com/">django</a></li>
+    <li class="slide"><a href="http://mysql.com">MySQL</a></li>
+    <li class="slide"><a href="http://jinja.pocoo.org/">Jinja2</a> (with <a href="https://github.com/jbalogh/jingo">jingo</a>)</li>
+    <li class="slide"><a href="https://nose.readthedocs.org/en/latest/">nose</a> (and <a href="https://github.com/jbalogh/django-nose">django-nose</a>)</li>
+  </ul>
 </section>
 
+<section class="slide">
+  <h2><a href="https://github.com/jbalogh/jingo">jingo</a></h2>
+  <h3>settings.py</h3>
+  <textarea id="jingo-settings-code" class="code" mode="python" theme="lesser-dark">TEMPLATE_LOADERS += ( 'jingo.Loader', )</textarea>
+  <h3>views.py</h3>
+<textarea id="jingo-view-code" class="code" mode="python" theme="lesser-dark">
+from django.shortcuts import render
+
+
+def my_view(request):
+    render('my/template.html', {'foo': 'bar'})</textarea>
+</section>
 
 <section class="slide">
   <h2>playdoh / getting started / <a href="https://github.com/jbalogh/django-nose">django-nose</a></h2>
-  <ul>
-    <li>fast fixtures</li>
-    <li>REUSE_DB=1</li>
-    <li>nose plugins!</li>
-  <textarea id="django-nose-code" class="code" mode="python" theme="lesser-dark">
-INSTALLED_APPS += ( 'django_nose', )
-TEST_RUNNER = 'django_nose.NoseTestSuiteRunner'
-
-
-@attr('toc')
-def test_toc_toggle_off(self):
-
-
-./manage.py test wiki -atoc
+  <h3>fast fixtures, REUSE_DB=1, nose plugins!</h3>
+  <h4>settings.py</h4>
+  <textarea id="django-nose-settings-code" class="code" mode="python" theme="lesser-dark">INSTALLED_APPS += ( 'django_nose', )
+TEST_RUNNER = 'django_nose.NoseTestSuiteRunner'</textarea>
+  <h4>views.py</h4>
+<textarea id="django-nose-views-code" class="code" mode="python" theme="lesser-dark">@attr('toc')
+  def test_toc_toggle_off(self):</textarea>
+  <h4>command</h4>
+<textarea id="django-nose-command" class="code" mode="python" theme="lesser-dark">./manage.py test wiki -atoc
 nosetests --verbosity 1 wiki -atoc
 .....
 ----------------------------------------------------------------------
@@ -295,7 +293,7 @@ OK
   <h2>playdoh libraries & tools for:</h2>
   <ul>
     <li>Getting Started</li>
-    <li><span style="font-size: 200%">Performance</span></li>
+    <li><span style="font-size: 5em;">Performance</span></li>
     <li>Security</li>
     <li>Localization</li>
   </ul>
@@ -304,15 +302,68 @@ OK
 <section class="slide">
   <h2>Performance</h2>
   <ul>
-    <li>Millions of monthly visitors</li>
+    <li>Many millions of monthly visitors</li>
     <li>Hacker News, Reddit, Slashdot, Digg, etc.</li>
     <li>Global latency</li>
   </ul>
 </section>
 
 <section class="slide">
+  <h2 style="font-size: 2em;">playdoh / performance / <a href="https://github.com/jbalogh/django-cache-machine">django-cache-machine</a></h2>
+  <h3>Automatic QuerySet caching</h3>
+  <h4>models.py</h4>
+  <textarea id="django-cache-machine-code" class="code" mode="python" theme="lesser-dark">from django.db import models
+
+import caching.base
+
+class Document(caching.base.CachingMixin, models.Model):
+    ...
+    objects = caching.base.CachingManager()</textarea>
+  <h4>list.html</h4>
+  <textarea id="django-cache-machine-template-code" class="code" mode="python" theme="lesser-dark">env = jinja2.Environment(extension=['caching.ext.cache'])
+
+{% cache revisions %}
+  {% for revision in revisions %}
+  ...
+  {% endfor %}
+{% endcache %}</textarea>
+</section>
+
+<section class="slide">
+  <h2 style="font-size: 2em;">playdoh / performance / <a href="https://github.com/jbalogh/django-multidb-router">django-multidb-router</a></h2>
+  <h3>Round-robin master/slave db router</h3>
+  <h4>settings.py</h4>
+  <textarea id="django-cache-machine-code" class="code" mode="python" theme="lesser-dark">DATABASES = {
+    'default': { ... },
+    'slave-1': { ... },
+    'slave-2': { ... },
+}
+SLAVE_DATABASES = ['slave-1', 'slave-2']
+
+DATABASE_ROUTERS += ('multidb.MasterSlaveRouter',)</textarea>
+</section>
+
+<section class="slide">
+  <h2>playdoh / getting started / <a href="http://pypi.python.org/pypi/django-celery">django-celery</a></h2>
+  <h4>settings.py</h4>
+  <textarea id="django-celery-settings-code" class="code" mode="python" theme="lesser-dark">INSTALLED_APPS += ( 'djcelery', )
+
+
+import djcelery
+djcelery.setup_loader()</textarea>
+  <h4>tasks.py</h4>
+  <textarea id="django-celery-tasks-code" class="code" mode="python" theme="lesser-dark">from celery.task import task
+
+
+@task
+def render_document(doc, cache_control, base_url):
+    doc.render(cache_control, base_url)</textarea>
+</section>
+
+<section class="slide">
   <h2>playdoh / performance / <a href="https://github.com/jsocol/jingo-minify/">jingo-minify</a></h2>
-  <h3>settings.py</h3>
+  <h3>Bundle & Minify Static Assets</h3>
+  <h4>settings.py</h4>
   <textarea id="jingo-minify-settings" class="code" mode="python" theme="lesser-dark">
 INSTALLED_APPS += ( 'jingo_minify', )
 
@@ -362,7 +413,7 @@ common-min.js</textarea>
     <h1>Welcome</h1>
     {{ js('common') }}
   </body></textarea>
-  <h3>base.html</h3>
+  <h3>base.html output</h3>
   <textarea id="jingo-minify-template-output" class="code" mode="python" theme="lesser-dark">
   <head>
     <title>Welcome</title>
@@ -375,39 +426,174 @@ common-min.js</textarea>
 </section>
 
 <section class="slide">
-  <h2>playdoh / performance / <a href="https://github.com/jbalogh/django-cache-machine">django-cache-machine</a></h2>
+  <h2>playdoh libraries & tools for:</h2>
   <ul>
-    <li>Automatic QuerySet caching</li>
+    <li>Getting Started</li>
+    <li>Performance</li>
+    <li><span style="font-size: 5em">Security</span></li>
+    <li>Localization</li>
   </ul>
-  <h3>models.py</h3>
-  <textarea id="django-cache-machine-code" class="code" mode="python" theme="lesser-dark">from django.db import models
-
-import caching.base
-
-class Document(caching.base.CachingMixin, models.Model):
-    ...
-    objects = caching.base.CachingManager()</textarea>
-  <h3>list.html</h3>
-  <textarea id="django-cache-machine-template-code" class="code" mode="python" theme="lesser-dark">env = jinja2.Environment(extension=['caching.ext.cache'])
-
-{% cache revisions %}
-  {% for revision in revisions %}
-  ...
-  {% endfor %}
-{% endcache %}</textarea>
 </section>
 
 <section class="slide">
-  <h2><a href="https://github.com/jbalogh/jingo">jingo</a></h2>
-  <textarea id="jingo-code" class="code" mode="python" theme="lesser-dark">
-TEMPLATE_LOADERS += ( 'jingo.Loader', )
-
-from django.shortcuts import render
-
-def my_view(request):
-    render('my/template.html', {'foo': 'bar'})
-</textarea>
+  <h2>Security</h2>
+  <h1>User sovereignty</h1>
 </section>
+
+<section class="slide">
+  <h2>playdoh / security / <a href="https://github.com/fwenzel/django-sha2">django-sha2</a></h2>
+  <h3>monkey-patch for stronger password hashing</h3>
+  <h4>settings.py</h4>
+  <textarea id="django-sha2-settings" class="code" mode="python" theme="lesser-dark">INSTALLED_APPS += (
+    'django.contrib.auth',
+    'django_sha2',
+)
+
+
+PWD_ALGORITHM = 'bcrypt' # or sha512, sha512b64, sha256
+BCRYPT_ROUNDS = 12
+
+
+HMAC_KEYS = {
+    '2011-01-01': 'SecretKey',
+    '2012-01-01': 'AnotherSecretKey',
+}</textarea>
+</section>
+
+<section class="slide">
+  <h2>Security</h2>
+  <h1>Get rid of passwords</h1>
+</section>
+
+<section class="slide">
+  <h2>Security</h2>
+  <a href="https://persona.org"><img src="http://www.geeky-gadgets.com/wp-content/uploads/2012/09/Mozilla-Persona.jpg"/></a>
+</section>
+
+<section class="slide">
+  <h2>playdoh / security / <a href="https://github.com/mozilla/django-browserid">django-browserid</a></h2>
+  <h3>django library for BrowserID</h3>
+  <h4>settings.py</h4>
+  <textarea id="django-browserid-settings" class="code" mode="python" theme="lesser-dark">INSTALLED_APPS += (
+    'django.contrib.auth',
+    'django_browserid',
+)
+
+AUTHENTICATION_BACKENDS += ('django_browserid.auth.BrowserIDBackend',)
+
+TEMPLATE_CONTEXT_PROCESSORS += ( 'django_browserid.context_processors.browserid_form', )
+
+SITE_URL = 'https://127.0.0.1:8000'</textarea>
+  <h4>urls.py</h4>
+  <textarea id="django-browserid-urls" class="code" mode="python" theme="lesser-dark">urlpatterns += patterns('',
+    (r'^browserid/', include('django_browserid.urls')),
+)</textarea>
+</section>
+
+<section class="slide">
+  <h2>playdoh / security / <a href="https://github.com/mozilla/django-browserid">django-browserid</a></h2>
+  <h3>django library for BrowserID</h3>
+  <h4>login.html</h4>
+  <textarea id="django-browserid-login" class="code" mode="python" theme="lesser-dark">{% if not user.is_authenticated %}
+
+  {{ browserid_form.media }}
+
+  <a id="browserid" href="#">Sign In</a>
+
+  <form method="POST" action="{% url browserid_verify %}">
+    {% csrf_token %}
+    {{ browserid_form.as_p }}
+  </form>
+
+{% endif %}</textarea>
+</section>
+
+<section class="slide">
+  <h2>playdoh / security / <a href="https://github.com/mozilla/django-session-csrf">django-session-csrf</a></h2>
+  <h3>monkey-patch django csrf to use sessions instead of cookies</h3>
+  <h4>settings.py</h4>
+  <textarea id="django-session-csrf" class="code" mode="python" theme="lesser-dark">TEMPLATE_CONTEXT_PROCESSORS = (
+    ...
+    'session_csrf.context_processor',
+    ...
+)
+
+MIDDLEWARE_CLASSES = (
+    ...
+    'session_csrf.CsrfMiddleware',
+    ...
+)
+
+import session_csrf
+session_csrf.monkeypatch()
+  </textarea>
+</section>
+
+<section class="slide">
+  <h2>playdoh / security / <a href="https://github.com/jsocol/bleach/">bleach</a></h2>
+  <h3>whitelist HTML sanitizer</h3>
+  <h4>models.py</h4>
+  <textarea id="bleach-code" class="code" mode="python" theme="lesser-dark">import bleach
+
+ALLOWED_TAGS = bleach.ALLOWED_TAGS + ['pre',]
+ALLOWED_ATTRIBUTES = bleach.ALLOWED_ATTRIBUTES
+ALLOWED_ATTRIBUTES['pre'] = ['id', 'class',]
+ALLOWED_STYLES = ['border', 'background',]
+  
+bleach.clean(user_input,
+             tags=ALLOWED_TAGS,
+             attributes=ALLOWED_ATTRIBUTES,
+             styles=ALLOWED_STYLES)</textarea>
+</section>
+
+<section class="slide">
+  <h2>playdoh libraries & tools for:</h2>
+  <ul>
+    <li>Getting Started</li>
+    <li>Performance</li>
+    <li>Security</li>
+    <li><span style="font-size: 5em">Localization</span></li>
+  </ul>
+</section>
+
+<section class="slide">
+  <h2>Localization</h2>
+  <ul>
+    <li>10-40 languages per website</li>
+    <li>LTR and RTL</li>
+    <li>Volunteer driven</li>
+  </ul>
+</section>
+
+<section class="slide">
+  <h2>playdoh / localization / <a href="https://github.com/clouserw/tower">tower</a></h2>
+  <h3>extract strings with Babel and Jinja</h3>
+  <h4>settings.py</h4>
+  <textarea id="tower-settings-code" class="code" mode="python" theme="lesser-dark">def JINJA_CONFIG():
+    config = {'extensions': ['tower.template.i18n',]}
+
+TOWER_KEYWORDS = {
+    '_lazy': None
+}</textarea>
+</section>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 <section class="slide">
   <h2>playdoh / deploying / <a href="https://github.com/jsocol/django-waffle">django-waffle</a></h2>
