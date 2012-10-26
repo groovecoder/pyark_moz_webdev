@@ -195,14 +195,256 @@
 </section>
 
 <section class="slide">
-  <h2>Scaling</h2>
+  <h2>"Scaling"</h2>
   <ul>
     <li class="slide">vertically - visitors &amp; traffic</li>
     <li class="slide">horizontally - across teams</li>
-    <li class="slide">communally - across knowledge levels</li>
+    <li class="slide">communally - across locales</li>
+    <li class="slide">conceptually - across knowledge levels</li>
   </ul>
 </section>
 
+<section class="slide">
+  <h1><a href="http://playdoh.readthedocs.org/en/latest/">playdoh</a></h1>
+</section>
+
+<section class="slide">
+  <h2>playdoh</h2>
+  <ul>
+    <li>libraries</li>
+    <li>tools</li>
+    <li><a href="http://playdoh.readthedocs.org/en/latest/">docs</a></li>
+    <li class="slide">not apps (i.e., not pinax)</li>
+  </ul>
+</section>
+
+<section class="slide">
+  <h2>playdoh libraries & tools for:</h2>
+  <ul>
+    <li>Getting Started</li>
+    <li>Performance</li>
+    <li>Security</li>
+    <li>Localization</li>
+  </ul>
+</section>
+
+<section class="slide">
+  <h2>playdoh libraries & tools for:</h2>
+  <ul>
+    <li><span style="font-size: 200%">Getting Started</span></li>
+    <li>Performance</li>
+    <li>Security</li>
+    <li>Localization</li>
+  </ul>
+</section>
+
+<section class="slide">
+  <h2>playdoh / getting started</h2>
+  <h3>Start</h3>
+  <ul>
+    <li>funfactory</li>
+  </ul>
+  <h3>Test</h3>
+  <ul>
+    <li>djang-nose</li>
+  </ul>
+</section>
+
+<section class="slide">
+  <h2>playdoh / getting started / <a href="https://github.com/mozilla/funfactory">funfactory</a></h2>
+  <textarea id="funfactory-code" class="code" mode="python" theme="lesser-dark">
+pip install funfactory
+
+funfactory --pkg=newsite
+
+mysql -u root -e 'create database newsite;'
+./manage.py syncdb
+./manage.py runserver 0.0.0.0:8000
+  </textarea>
+  <hr/>
+  <h3 class="slide"><a href="http://south.aeracode.org/">South</a></h3>
+</section>
+
+
+<section class="slide">
+  <h2>playdoh / getting started / <a href="https://github.com/jbalogh/django-nose">django-nose</a></h2>
+  <ul>
+    <li>fast fixtures</li>
+    <li>REUSE_DB=1</li>
+    <li>nose plugins!</li>
+  <textarea id="django-nose-code" class="code" mode="python" theme="lesser-dark">
+INSTALLED_APPS += ( 'django_nose', )
+TEST_RUNNER = 'django_nose.NoseTestSuiteRunner'
+
+
+@attr('toc')
+def test_toc_toggle_off(self):
+
+
+./manage.py test wiki -atoc
+nosetests --verbosity 1 wiki -atoc
+.....
+----------------------------------------------------------------------
+Ran 5 tests in 1.582s
+
+OK
+</textarea>
+</section>
+
+<section class="slide">
+  <h2>playdoh libraries & tools for:</h2>
+  <ul>
+    <li>Getting Started</li>
+    <li><span style="font-size: 200%">Performance</span></li>
+    <li>Security</li>
+    <li>Localization</li>
+  </ul>
+</section>
+
+<section class="slide">
+  <h2>Performance</h2>
+  <ul>
+    <li>Millions of monthly visitors</li>
+    <li>Hacker News, Reddit, Slashdot, Digg, etc.</li>
+    <li>Global latency</li>
+  </ul>
+</section>
+
+<section class="slide">
+  <h2>playdoh / performance / <a href="https://github.com/jsocol/jingo-minify/">jingo-minify</a></h2>
+  <h3>settings.py</h3>
+  <textarea id="jingo-minify-settings" class="code" mode="python" theme="lesser-dark">
+INSTALLED_APPS += ( 'jingo_minify', )
+
+MINIFY_BUNDLES = {
+    'css': {
+        'common': (
+            'css/reset.css',
+            'css/layout.css',
+        ),
+    },
+    'js': {
+        'common': (
+            'js/lib/jquery.js',
+            'js/common.js',
+        ),
+    },
+}
+</textarea>
+</section>
+
+<section class="slide">
+  <h2>playdoh / performance / <a href="https://github.com/jsocol/jingo-minify/">jingo-minify</a></h2>
+  <h3>settings.py</h3>
+  <textarea id="jingo-minify-bin-code" class="code" mode="python" theme="lesser-dark">
+JAVA_BIN = '/path/to/java'
+or
+UGLIFY_BIN = '/path/to/uglifyjs'
+CLEANCSS_BIN = '/path/to/cleancss'</textarea>
+  <h3>command</h3>
+  <textarea id="jingo-minify-command" class="code" mode="python" theme="lesser-dark">./manage.py compress_assets
+
+common-all.css
+common-all.js
+common-min.css
+common-min.js</textarea>
+</section>
+
+<section class="slide">
+  <h2>playdoh / performance / <a href="https://github.com/jsocol/jingo-minify/">jingo-minify</a></h2>
+  <h3>base.html</h3>
+  <textarea id="jingo-minify-template-code" class="code" mode="python" theme="lesser-dark">
+  <head>
+    <title>{{ title }}</title>
+    {{ css('common') }}
+  </head>
+  <body>
+    <h1>Welcome</h1>
+    {{ js('common') }}
+  </body></textarea>
+  <h3>base.html</h3>
+  <textarea id="jingo-minify-template-output" class="code" mode="python" theme="lesser-dark">
+  <head>
+    <title>Welcome</title>
+    <link rel="stylesheet" href="//domain/css/common-min.css?build=d689baf" />
+  </head>
+  <body>
+    <h1>Welcome</h1>
+    <script src="//domain/js/common-min.js?build=d689baf"></script> 
+  </body></textarea>
+</section>
+
+<section class="slide">
+  <h2>playdoh / performance / <a href="https://github.com/jbalogh/django-cache-machine">django-cache-machine</a></h2>
+  <ul>
+    <li>Automatic QuerySet caching</li>
+  </ul>
+  <h3>models.py</h3>
+  <textarea id="django-cache-machine-code" class="code" mode="python" theme="lesser-dark">from django.db import models
+
+import caching.base
+
+class Document(caching.base.CachingMixin, models.Model):
+    ...
+    objects = caching.base.CachingManager()</textarea>
+  <h3>list.html</h3>
+  <textarea id="django-cache-machine-template-code" class="code" mode="python" theme="lesser-dark">env = jinja2.Environment(extension=['caching.ext.cache'])
+
+{% cache revisions %}
+  {% for revision in revisions %}
+  ...
+  {% endfor %}
+{% endcache %}</textarea>
+</section>
+
+<section class="slide">
+  <h2><a href="https://github.com/jbalogh/jingo">jingo</a></h2>
+  <textarea id="jingo-code" class="code" mode="python" theme="lesser-dark">
+TEMPLATE_LOADERS += ( 'jingo.Loader', )
+
+from django.shortcuts import render
+
+def my_view(request):
+    render('my/template.html', {'foo': 'bar'})
+</textarea>
+</section>
+
+<section class="slide">
+  <h2>playdoh / deploying / <a href="https://github.com/jsocol/django-waffle">django-waffle</a></h2>
+  <textarea id="django-waffle-code" class="code" mode="python" theme="lesser-dark">
+INSTALLED_APPS += ( 'waffle', )
+
+import waffle
+
+def my_view(request):
+    if waffle.flag_is_active(request, 'flag_name'):
+        pass
+    else:
+        pass
+  </textarea>
+</section>
+
+<!--
+<section class="slide">
+  <h2>playdoh / deploying / <a href="https://github.com/jsocol/django-cronjobs">django-cronjobs</a></h2>
+  <textarea id="django-cronjobs-code" class="code" mode="python" theme="lesser-dark">
+INSTALLED_APPS += ( 'cronjobs', )
+
+import cronjobs
+
+@cronjobs.register
+def cache_doc_center_links():
+    pass
+</textarea>
+</section>
+-->
+
+<section class="slide">
+  <h2>Bleeding edge</h2>
+  <ul>
+    <li>vendor and/or venvs</li>
+  </ul>
+</section>
 
 <section class="slide">
   <h2><a href="https://github.com/jsocol/django-waffle">django-waffle</a></h2>
@@ -217,6 +459,12 @@ def my_view(request):
   </textarea>
 </section>
 
+<section class="slide">
+  <h2>Bleeding edge</h2>
+  <ul>
+    <li>vendor and/or venvs</li>
+  </ul>
+</section>
 <!-- End slides. -->
 
 
@@ -269,7 +517,7 @@ def my_view(request):
 <script>
 	$(function() {
 		$.deck('.slide');
-    $.deck('remote', { server: 'localhost' });
+    $.deck('remote', { server: 'pyark.jit.su' });
     $.deck('iframes');
 	});
   var key_theme_array = {};
