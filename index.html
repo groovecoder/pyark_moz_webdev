@@ -664,10 +664,11 @@ svn ci -m "MDN string update YYYY-MM-DD"</textarea>
 
 <section class="slide">
   <h2 style="font-size: 2em;">playdoh / continuous deployment / <a href="https://github.com/jsocol/django-waffle">django-waffle</a></h2>
-  <textarea id="django-waffle-code" class="code" mode="python" theme="lesser-dark">
-INSTALLED_APPS += ( 'waffle', )
+  <h3>settings.py</h3>
+  <textarea id="django-waffle-settings-code" class="code" mode="python" theme="lesser-dark">INSTALLED_APPS += ( 'waffle', )</textarea>
+  <h3>views.py</h3>
+  <textarea id="django-waffle-views-code" class="code" mode="python" theme="lesser-dark">import waffle
 
-import waffle
 
 def my_view(request):
     if waffle.flag_is_active(request, 'flag_name'):
@@ -676,6 +677,25 @@ def my_view(request):
   <ul>
     <li><a href="https://github.com/mozilla/kuma/blob/master/apps/dashboards/views.py#L132">code</a></li>
     <li><a href="https://developer.mozilla.org/en-US/revisions">link</a></li>
+  </ul>
+</section>
+
+<section class="slide">
+  <h2 style="font-size: 2em;">playdoh / continuous deployment / <a href="https://github.com/andymckay/django-statsd/">django-statsd</a></h2>
+  <h5><a href="http://graphite.wikidot.com/">Graphite</a></h5>
+  <h3>settings.py</h3>
+  <textarea id="django-statsd-settings-code" class="code" mode="python" theme="lesser-dark">MIDDLEWARE_CLASSES += (
+    'django_statsd.middleware.GraphiteRequestTimingMiddleware',
+    'django_statsd.middleware.GraphiteMiddleware',
+    )</textarea>
+  <h3>views.py</h3>
+  <textarea id="django-statsd-code" class="code" mode="python" theme="lesser-dark">from django_statsd.clients import statsd
+
+statsd.incr('browserid_register')</textarea>
+  <h3>recent example</h3>
+  <ul>
+    <li><a href="https://github.com/mozilla/kuma/blob/master/apps/users/views.py#L165">code</a></li>
+    <li><a href="https://developer.mozilla.org/">link</a></li>
   </ul>
 </section>
 
@@ -695,21 +715,43 @@ def my_view(request):
     </li>
     <li class="slide">Important</li>
       <ul>
-        <li class="slide">Desktop is the biggest leverage
-          <ul>
-            <li>Help test <a href="https://www.mozilla.org/en-US/firefox/channel/#aurora">Aurora</a></li>
-          </ul>
-        </li>
         <li class="slide">On Mobile, closed is the default
           <ul>
-            <li>Check out <a href="https://www.mozilla.org/en-US/firefoxos/">Firefox OS</a></li>
-            <li>Help hack on <a href="https://wiki.mozilla.org/Gaia/Hacking">Gaia</a></li>
-            <li>Create <a href="https://www.mozilla.org/en-US/apps/">Open Web Apps</a> and submit them to <a href="https://marketplace.mozilla.org/">Mozilla Marketplace</a></li>
+            <li><a href="https://www.mozilla.org/en-US/firefoxos/">Firefox OS</a> / <a href="https://wiki.mozilla.org/Gaia/Hacking">Gaia</a></li>
+            <li><a href="https://www.mozilla.org/en-US/apps/">Open Web Apps / Marketplace</a></li>
           </ul>
         </li>
         <li class="slide">Social Identity Lock-in
           <ul>
-            <li>Implement <a href="https://persona.org">Persona</a></li>
+            <li><a href="https://persona.org">Persona</a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</section>
+
+<section class="slide">
+  <h2>Seriously, join us</h2>
+  <ul>
+    <li>Easy
+      <ul>
+        <li><a href="https://wiki.mozilla.org/Webdev/GetInvolved/developer.mozilla.org#Mentored_Bugs">MDN mentored bugs</a></li>
+        <li><a href="http://whatcanidoformozilla.org/">What can I do for Mozilla?</a></li>
+        <li><a href="https://careers.mozilla.org/en-US/">We're hiring</a></li>
+      </ul>
+    </li>
+    <li >Important</li>
+      <ul>
+        <li >On Mobile, closed is the default
+          <ul>
+            <li><a href="https://www.mozilla.org/en-US/firefoxos/">Firefox OS</a> / <a href="https://wiki.mozilla.org/Gaia/Hacking">Gaia</a></li>
+            <li><a href="https://www.mozilla.org/en-US/apps/">Open Web Apps / Marketplace</a></li>
+          </ul>
+        </li>
+        <li >Social Identity Lock-in
+          <ul>
+            <li><a href="https://persona.org">Persona</a></li>
           </ul>
         </li>
       </ul>
