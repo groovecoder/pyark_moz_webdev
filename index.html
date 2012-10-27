@@ -567,36 +567,101 @@ bleach.clean(user_input,
 
 <section class="slide">
   <h2>playdoh / localization / <a href="https://github.com/clouserw/tower">tower</a></h2>
-  <h3>extract strings with Babel and Jinja</h3>
+  <h3>mark strings with gettext, Babel and Jinja</h3>
   <h4>settings.py</h4>
-  <textarea id="tower-settings-code" class="code" mode="python" theme="lesser-dark">def JINJA_CONFIG():
+  <textarea id="tower-settings-code" class="code" mode="python" theme="lesser-dark">INSTALLED_APPS += ('tower',)
+
+def JINJA_CONFIG():
     config = {'extensions': ['tower.template.i18n',]}
+
 
 TOWER_KEYWORDS = {
     '_lazy': None
 }</textarea>
+  <h4>views.py</h4>
+  <textarea id="tower-views-code" class="code" mode="python" theme="lesser-dark">from tower import ugettext_lazy as _lazy, ugettext as _
+
+    verbose_name = _("Document Tag")</textarea>
+  <h4>document.html</h4>
+  <textarea id="tower-template-code" class="code" mode="python" theme="lesser-dark"><label from="language">{{ _('Other languages:') }}</label></textarea>
 </section>
 
+<section class="slide">
+  <h2>playdoh / localization / <a href="https://github.com/clouserw/tower">tower</a></h2>
+  <h3>extract strings and commit to svn</h3>
+  <h4>command</h4>
+  <textarea id="tower-command" class="code" mode="python" theme="lesser-dark">./manage.py extract
+./manage.py verbatimize --rename
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+cd locale
+svn up
+svn ci -m "MDN string update YYYY-MM-DD"</textarea>
+  <h4><a href="https://localize.mozilla.org/">Mozilla Verbatim</a></h4>
+</section>
 
 <section class="slide">
-  <h2>playdoh / deploying / <a href="https://github.com/jsocol/django-waffle">django-waffle</a></h2>
+  <h2>playdoh libraries & tools for:</h2>
+  <ul>
+    <li>Getting Started</li>
+    <li>Performance</li>
+    <li>Security</li>
+    <li>Localization</li>
+  </ul>
+</section>
+
+<section class="slide">
+  <h1>(MDN) Process</h1>
+</section>
+
+<section class="slide">
+  <h2>process / bug-tracking</h2>
+  <ul>
+    <li><a href="http://bugzilla.mozilla.org/">bugzilla</a></li>
+    <li class="slide">NOT bugzilla</li>
+    <li class="slide"><a href="http://scrumbu.gs/t/mdn/2012-07-03/">Scrumbu.gs</a></li>
+    <li class="slide"><a href="https://wiki.mozilla.org/MDN/Development/Meetings">Bi-weekly Scrum meetings</a></li>
+  </ul>
+</section>
+
+<section class="slide">
+  <h2>process / code management</h2>
+  <ul>
+    <li><a href="https://github.com/mozilla/">github</a> (450 public repos)</li>
+    <li class="slide">kinda <a href="http://jeffkreeftmeijer.com/2010/why-arent-you-using-git-flow/">git-flow</a>y</li>
+    <li class="slide">service hooks
+      <ul>
+        <li><a href="https://bugzilla.mozilla.org/show_bug.cgi?id=800005#c2">Bugzilla</a> "fix bug NNNNNN - ..."</li>
+        <li>IRC</li>
+    </li>
+  </ul>
+</section>
+
+<section class="slide">
+  <h2>process / continuous integration</h2>
+  <ul>
+    <li><a href="https://ci.mozilla.org/job/mdn/">jenkins</a></li>
+    <li><a href="https://github.com/mozilla/kuma/pull/668">leeeroooooooooooooy</a></li>
+  </ul>
+</section>
+
+<section class="slide">
+  <h2>process / continuous deployment</h2>
+  <ul>
+    <li><a href="https://developer-dev.allizom.org/">dev</a>, <a href="https://developer.allizom.org">stage</a>, <a href="https://developer.mozilla.org/">prod</a> servers</li>
+  </ul>
+  <h3 class="slide">dev</h3>
+  <ul>
+    <li class="slide">Deployed after every commit</li>
+  </ul>
+  <h3 class="slide"><a href="https://developer.mozilla.org/en-US/docs/User:lmorchard/TestGithubTemplate">What's on deck</a> (<a href="https://developer.allizom.org/media/revision.txt">src</a>)</h3>
+  <h3 class="slide">stage & prod</h3>
+  <ul>
+    <li class="slide">1-button deploy with <a href="https://github.com/jbalogh/chief">chief</a> and <a href="https://github.com/oremj/commander">commander</a></li>
+  </ul>
+</section>
+
+<section class="slide">
+  <h2 style="font-size: 2em;">playdoh / continuous deployment / <a href="https://github.com/jsocol/django-waffle">django-waffle</a></h2>
   <textarea id="django-waffle-code" class="code" mode="python" theme="lesser-dark">
 INSTALLED_APPS += ( 'waffle', )
 
@@ -604,53 +669,46 @@ import waffle
 
 def my_view(request):
     if waffle.flag_is_active(request, 'flag_name'):
-        pass
-    else:
-        pass
-  </textarea>
-</section>
-
-<!--
-<section class="slide">
-  <h2>playdoh / deploying / <a href="https://github.com/jsocol/django-cronjobs">django-cronjobs</a></h2>
-  <textarea id="django-cronjobs-code" class="code" mode="python" theme="lesser-dark">
-INSTALLED_APPS += ( 'cronjobs', )
-
-import cronjobs
-
-@cronjobs.register
-def cache_doc_center_links():
-    pass
-</textarea>
-</section>
--->
-
-<section class="slide">
-  <h2>Bleeding edge</h2>
+        pass  # do the feature</textarea>
+  <h3>recent example</h3>
   <ul>
-    <li>vendor and/or venvs</li>
+    <li><a href="https://github.com/mozilla/kuma/blob/master/apps/dashboards/views.py#L132">code</a></li>
+    <li><a href="https://developer.mozilla.org/en-US/revisions">link</a></li>
   </ul>
 </section>
 
 <section class="slide">
-  <h2><a href="https://github.com/jsocol/django-waffle">django-waffle</a></h2>
-  <textarea id="django-waffle-code" class="code" mode="python" theme="lesser-dark">
-import waffle
-
-def my_view(request):
-    if waffle.flag_is_active(request, 'flag_name'):
-        pass
-    else:
-        pass
-  </textarea>
+  <h1>&lt;sales-pitch&gt;<br/><a href="https://wiki.mozilla.org/Webdev/GetInvolved">join us!</a><br/>&lt;/sales-pitch&gt;</h1>
 </section>
 
 <section class="slide">
-  <h2>Bleeding edge</h2>
+  <h2>Seriously, join us</h2>
   <ul>
-    <li>vendor and/or venvs</li>
+    <li class="slide">Easy
+      <ul>
+        <li><a href="https://wiki.mozilla.org/Webdev/GetInvolved/developer.mozilla.org#Mentored_Bugs">MDN mentored bugs</a></li>
+        <li><a href="http://whatcanidoformozilla.org/">What can I do for Mozilla?</a></li>
+        <li><a href="https://careers.mozilla.org/en-US/">We're hiring</a></li>
+      </ul>
+    </li>
+    <li class="slide">Important</li>
+      <ul>
+        <li class="slide">On Mobile, closed is the default
+          <ul>
+            <li><a href="https://www.mozilla.org/en-US/firefoxos/">Firefox OS</a> / <a href="https://wiki.mozilla.org/Gaia/Hacking">Gaia</a></li>
+            <li><a href="https://www.mozilla.org/en-US/apps/">Open Web Apps / Marketplace</a></li>
+          </ul>
+        </li>
+        <li class="slide">Social Identity Lock-in
+          <ul>
+            <li><a href="https://persona.org">Persona</a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
   </ul>
 </section>
+
 <!-- End slides. -->
 
 
